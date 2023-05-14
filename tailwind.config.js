@@ -14,5 +14,9 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms')({
+      strategy: 'class', // 用class来覆盖tailwind的默认样式
+    }),
+  ],
 }
