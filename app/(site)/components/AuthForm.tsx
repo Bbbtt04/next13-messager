@@ -48,15 +48,15 @@ const AuthForm = () => {
         if (variant === "REGISTER") {
             axios.post("/api/register", data)
                 .then((cb: any) => {
-                    if (cb?.error) {
-                        toast.error("注册失败！")
-                    } else if(cb?.ok) {
-                        toast.error("注册成功！")
+                    if (cb?.status === 200) {
+                        toast.success("注册成功！")
                         router.push("/users")
+                    } else if(cb?.ok) {
+                        toast.error("注册失败！")
                     }
                 }).catch((err) => {
-                toast.error('Something went wrong!')
-            })
+                    toast.error('Something went wrong!')
+                })
                 .finally(() => setIsLoading(false))
         }
 
