@@ -2,9 +2,9 @@ import Image from "next/image";
 import AuthForm from "./components/AuthForm";
 
 export default function Home() {
-  return (
-    <div
-      className="
+    return (
+        <div
+            className="
         flex
         min-h-full
         flex-col
@@ -15,17 +15,17 @@ export default function Home() {
         sm:px-6
         lg:px-8
       "
-    >
-      <div>
-        <Image 
-          src="/next.svg"
-          height="96"
-          width="96"
-          alt="Next.js Logo"
-          className="mx-auto w-auto"
-        ></Image>
-        <h2 
-          className="
+        >
+            <div>
+                <Image
+                    src="/next.svg"
+                    height="96"
+                    width="96"
+                    alt="Next.js Logo"
+                    className="mx-auto w-auto"
+                ></Image>
+                <h2
+                    className="
             mt-6
             text-center
             text-3xl
@@ -33,11 +33,11 @@ export default function Home() {
             tracking-widest
             text-gray-900
           "
-        >
-          登录你的账号
-        </h2>
-      </div>
-      <AuthForm></AuthForm>
-    </div>
-  )
+                >
+                    登录你的账号
+                </h2>
+            </div>
+            <AuthForm></AuthForm>
+        </div>
+    )
 }
