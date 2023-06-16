@@ -9,6 +9,8 @@ import axios from "axios";
 import {signIn, useSession} from 'next-auth/react'
 import toast from "react-hot-toast";
 import {useRouter} from "next/navigation";
+import TimeLocalStorage from "@/app/utils/TimeLocalStorage";
+import { RememberUser } from "@/app/utils/Constants";
 
 type Variant = "LOGIN" | "REGISTER";
 
@@ -17,6 +19,15 @@ const AuthForm = () => {
     const router = useRouter();
     const [variant, setVariant] = useState<Variant>("LOGIN");
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isRemember, setIsRemember] = useState<boolean>(true);
+
+    useEffect(() => {
+        const user = TimeLocalStorage.getItem(RememberUser)
+        if(user) {
+            setValue("email", user.email)
+            setValue("password", user.password)
+        }
+    }, [])
 
     useEffect(() => {
         if(session?.status === 'unauthenticated') {
@@ -33,6 +44,7 @@ const AuthForm = () => {
     const {
         register,
         handleSubmit,
+        setValue,
         formState: {errors},
     } = useForm<FieldValues>({
         defaultValues: {
@@ -70,6 +82,12 @@ const AuthForm = () => {
                     if (cb?.error) {
                         toast.error("登录失败！邮箱或密码错误！");
                     } else if (cb?.ok) {
+                        if(isRemember) {
+                            TimeLocalStorage.setItem(RememberUser, {
+                                email: data.email,
+                                password: data.password,
+                            })
+                        }
                         toast.success("登录成功！")
                         router.push("/users")
                     }
@@ -81,19 +99,19 @@ const AuthForm = () => {
     return (
         <div
             className="
-        mt-8
-        sm:mx-auto sm:w-full sm:max-w-md
-      "
+            mt-8
+            sm:mx-auto sm:w-full sm:max-w-md
+            "
         >
             <div
                 className="
-          bg-white
-          py-8
-          px-4
-          shadow
-          rounded-lg
-          sm:px-10
-        "
+                bg-white
+                py-8
+                px-4
+                shadow
+                rounded-lg
+                sm:px-10
+                "
             >
                 <form
                     className="space-y-6"
@@ -129,6 +147,29 @@ const AuthForm = () => {
                         register={register}
                         disabled={isLoading}
                     />
+                    {
+                        variant === "LOGIN" && (
+                            <div className="flex">
+                                <input 
+                                    type="checkbox" 
+                                    id="remember" 
+                                    className="
+                                        mx-2
+                                        rounded
+                                    "
+                                    checked={isRemember}
+                                    onChange={() => setIsRemember(!isRemember)}
+                                />
+                                <label
+                                    htmlFor="remember"
+                                    className="
+                                        text-gray-500
+                                        text-sm
+                                        "
+                                >记住我</label>
+                            </div>
+                        )
+                    }
                     <div className="mt-3">
                         <Button
                             type="submit"
