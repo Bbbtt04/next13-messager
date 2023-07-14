@@ -1,0 +1,63 @@
+"use client";
+
+import useRoutes from "@/app/hooks/useRoutes";
+import React, {useState} from "react";
+import DesktopItem from "@/app/components/sidebar/DesktopItem";
+import Avatar from "@/app/components/Avatar";
+import {User} from ".prisma/client";
+
+interface DesktopSidebarProps {
+    currentUser: User
+}
+const DesktopSidebar:React.FC<DesktopSidebarProps> = (
+    {currentUser}
+) => {
+    const routes = useRoutes()
+    const [isOpen,setIsOpen] = useState(false)
+
+    return (
+        <>
+            {/*TODO: SettingsModal组件*/}
+            {/*<SettingsModal></SettingsModal>*/}
+            <div className="
+            fixed
+            inset-y-0
+            left-0
+            w-20
+            px-6
+            py-4
+            border-r-[1px]
+            flex
+            flex-col
+            justify-between
+        ">
+                <nav className="mt-4 flex flex-col justify-between">
+                    <ul role="list" className="flex flex-col items-center space-y-5">
+                        {
+                            routes.map(item => (
+                                <DesktopItem
+                                    key={item.label}
+                                    label={item.label}
+                                    icon={item.icon}
+                                    href={item.href}
+                                    active={item.active}
+                                    onClick={item.onClick}
+                                />
+                            ))
+                        }
+                    </ul>
+                </nav>
+
+                <nav className="mt-4 flex flex-col justify-between items-center">
+                    <div
+                        onClick = {() => setIsOpen(true)}
+                        className="cursor-pointer hover:opacity-75 transition">
+                        <Avatar user={currentUser}></Avatar>
+                    </div>
+                </nav>
+            </div>
+        </>
+    );
+}
+
+export default DesktopSidebar;

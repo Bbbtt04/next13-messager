@@ -2,15 +2,15 @@
 
 import Button from "@/app/components/Button";
 import Input from "@/app/components/Input";
-import {useCallback, useState, forwardRef, useEffect} from "react";
-import {FieldValue, FieldValues, SubmitHandler, useForm} from "react-hook-form";
+import {ReactElement, useCallback, useEffect, useState} from "react";
+import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
 
 import axios from "axios";
 import {signIn, useSession} from 'next-auth/react'
 import toast from "react-hot-toast";
 import {useRouter} from "next/navigation";
 import TimeLocalStorage from "@/app/utils/TimeLocalStorage";
-import { RememberUser } from "@/app/utils/Constants";
+import {RememberUser} from "@/app/utils/Constants";
 
 type Variant = "LOGIN" | "REGISTER";
 
@@ -23,17 +23,17 @@ const AuthForm = () => {
 
     useEffect(() => {
         const user = TimeLocalStorage.getItem(RememberUser)
-        if(user) {
+        if (user) {
             setValue("email", user.email)
             setValue("password", user.password)
         }
     }, [])
 
     useEffect(() => {
-        if(session?.status === 'unauthenticated') {
+        if (session?.status === 'authenticated') {
             router.push("/users");
         }
-    },[session?.status,router])
+    }, [session?.status, router])
 
     const toggleVariant = useCallback(() => {
         setVariant((variant) => {
@@ -63,12 +63,12 @@ const AuthForm = () => {
                     if (cb?.status === 200) {
                         toast.success("注册成功！")
                         router.push("/users")
-                    } else if(cb?.ok) {
+                    } else if (cb?.ok) {
                         toast.error("注册失败！")
                     }
                 }).catch((err) => {
-                    toast.error('Something went wrong!')
-                })
+                toast.error('Something went wrong!')
+            })
                 .finally(() => setIsLoading(false))
         }
 
@@ -82,7 +82,7 @@ const AuthForm = () => {
                     if (cb?.error) {
                         toast.error("登录失败！邮箱或密码错误！");
                     } else if (cb?.ok) {
-                        if(isRemember) {
+                        if (isRemember) {
                             TimeLocalStorage.setItem(RememberUser, {
                                 email: data.email,
                                 password: data.password,
@@ -150,9 +150,9 @@ const AuthForm = () => {
                     {
                         variant === "LOGIN" && (
                             <div className="flex">
-                                <input 
-                                    type="checkbox" 
-                                    id="remember" 
+                                <input
+                                    type="checkbox"
+                                    id="remember"
                                     className="
                                         mx-2
                                         rounded

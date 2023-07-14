@@ -2,6 +2,11 @@
 const nextConfig = {
   experimental: {
     appDir: true
+  },
+  images: {
+    domains: [
+        'p3-passport.byteimg.com'
+    ]
   }
 }
 
