@@ -12,7 +12,7 @@ async function Sidebar({children}:{
         <div className="h-full">
             <DesktopSidebar currentUser={currentUser!}/>
             {/*TODO MobileFooter组件*/}
-            {/*<MobileFooter></MobileFooter>*/}
+            <MobileFooter></MobileFooter>
             <main className="lg:pl-20 h-full">
                 {children}
             </main>

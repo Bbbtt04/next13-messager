@@ -17,7 +17,7 @@ const Avatar: React.FC<AvatarProps> = ({user}) => {
             h-9
             w-9
         ">
-                <Image fill alt="Avatar" src={user?.image || '/images/placeholder.jpg'} />
+                <Image fill sizes="1" alt="Avatar" src={user?.image || '/images/placeholder.jpg'} />
             </div>
             <span className="
                 absolute
