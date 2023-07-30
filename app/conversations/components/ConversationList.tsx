@@ -15,16 +15,16 @@ const ConversationList: React.FC<ConversationListProps> = ({ list }) => {
   return (
     <aside
       className="
-                fixed
-                inset-y-0
-                pb-20
-                lg:pb-0
-                lg:w-80
-                lg:block
-                overflow-y-auto
-                border-r
-                border-gray-200
-            "
+        fixed
+        inset-y-0
+        pb-20
+        lg:pb-0
+        lg:w-80
+        lg:block
+        overflow-y-auto
+        border-r
+        border-gray-200
+      "
     >
       <div className="px-5">
         <div className="flex justify-between mb-4 pt-4">
