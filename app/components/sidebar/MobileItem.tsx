@@ -1,23 +1,22 @@
-import clsx from "clsx";
-import Link from "next/link";
-
+import clsx from 'clsx'
+import Link from 'next/link'
 
 interface MobileItemProps {
-  href: string;
-  icon: any;
-  active?: boolean;
-  onClick?: () => void;
+  href: string
+  icon: any
+  active?: boolean
+  onClick?: () => void
 }
 
 const MobileItem: React.FC<MobileItemProps> = ({
   href,
   icon: Icon,
   active,
-  onClick
+  onClick,
 }) => {
   const handleClick = () => {
     if (onClick) {
-      return onClick();
+      return onClick()
     }
   }
 
@@ -25,7 +24,8 @@ const MobileItem: React.FC<MobileItemProps> = ({
     <Link
       href={href}
       onClick={handleClick}
-      className={clsx(`
+      className={clsx(
+        `
         group
         flex
         justify-center
@@ -46,4 +46,4 @@ const MobileItem: React.FC<MobileItemProps> = ({
   )
 }
 
-export default MobileItem;
+export default MobileItem

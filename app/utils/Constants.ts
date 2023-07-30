@@ -1,6 +1,3 @@
-const RememberUser = 'RememberUser';
+const RememberUser = 'RememberUser'
 
-
-export {
-  RememberUser
-}
+export { RememberUser }
