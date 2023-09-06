@@ -26,8 +26,6 @@ const getConversations = async () => {
         lastMessageAt: 'desc',
       },
     })
-    // TODO: remove this
-    console.log(conversations)
     return conversations
   } catch (error: any) {
     return []

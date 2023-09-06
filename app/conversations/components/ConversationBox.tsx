@@ -17,7 +17,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
   selected,
 }) => {
   const router = useRouter()
-  const otherUser = useOtherUser(data.users)
+  const otherUser = useOtherUser(data)
   const hasSeen = true
 
   const handleClick = () => {
