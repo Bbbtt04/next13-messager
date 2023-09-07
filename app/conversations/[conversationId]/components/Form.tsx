@@ -6,6 +6,7 @@ import React from 'react'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { HiPhoto } from 'react-icons/hi2'
 import MessageInput from './MessageInput'
+import { HiPaperAirplane } from 'react-icons/hi'
 
 const Form = () => {
   const { conversationId } = useConversation()
@@ -54,6 +55,12 @@ const Form = () => {
           errors={errors}
           placeholder="给他发个信息吧"
         ></MessageInput>
+        <button
+          type="submit"
+          className="rounded-full p-2 bg-sky-500 hover:bg-sky-600 transition"
+        >
+          <HiPaperAirplane size={18} className="text-white"></HiPaperAirplane>
+        </button>
       </form>
     </div>
   )
