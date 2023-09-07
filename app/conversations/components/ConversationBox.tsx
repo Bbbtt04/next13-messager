@@ -4,8 +4,9 @@ import Avatar from '@/app/components/Avatar'
 import useOtherUser from '@/app/hooks/useOtherUser'
 import { FullConversationType } from '@/app/types'
 import clsx from 'clsx'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useMemo } from 'react'
 
 interface ConversationBoxProps {
   data: FullConversationType
@@ -18,11 +19,38 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
 }) => {
   const router = useRouter()
   const otherUser = useOtherUser(data)
-  const hasSeen = true
+  const session = useSession()
 
   const handleClick = () => {
     router.push(`/conversations/${data.id}`)
   }
+
+  const lastMessage = useMemo(() => {
+    const messages = data.messages || []
+
+    return messages[messages.length - 1]
+  }, [data.messages])
+
+  const lastMessageText = useMemo(() => {
+    if (lastMessage?.image) return '对方发送了图片'
+
+    if (lastMessage?.body) return lastMessage.body
+
+    return '你好啊！第一次跟你聊天'
+  }, [lastMessage])
+
+  const userEmail = useMemo(
+    () => session.data?.user?.email,
+    [session.data?.user?.email]
+  )
+
+  const hasSeen = useMemo(() => {
+    if (!lastMessage) return false
+
+    const seenArray = lastMessage.seen || []
+
+    return seenArray.filter((user) => user.email === userEmail).length !== 0
+  }, [lastMessage, userEmail])
 
   return (
     <div
@@ -58,7 +86,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
               hasSeen ? `text-gray-400` : `text-gray-900 font-medium`
             )}
           >
-            你好啊！第一次跟你聊天
+            {lastMessageText}
           </p>
         </div>
       </div>
